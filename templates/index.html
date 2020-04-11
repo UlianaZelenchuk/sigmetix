@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sigmetix Test Project</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body class="container">
+<h2 class="title">Upload SCV file</h2>
+<form id="csv_form" action="" class="form" method="post" enctype="multipart/form-data" name="form">
+    <input id="csv_file" type="file" name="file" accept=".csv"/>
+    <br>
+    <input type="hidden" name="import" value="csv">
+    <input type="button" onclick="submitFile()" value="Submit form">
+</form>
+<?php if(!empty($errors)) : ?>
+<h3><?php echo $errors ?></h3>
+<?php endif; ?>
+<?php if(!empty($dataResult)) : ?>
+<h4>Result: inserted rows: <?php echo $dataResult['inserted'] ?>;
+    updated rows: <?php echo $dataResult['updated'] ?>; deleted rows: <?php echo $dataResult['deleted'] ?>;</h4>
+<?php endif; ?>
+<?php if(!empty($users)) : ?>
+<h2 class="title">Users</h2>
+<table>
+    <tr>
+        <th>uid</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Birthday</th>
+        <th>Date change</th>
+        <th>Description</th>
+    </tr>
+    <?php foreach($users as $user) : ?>
+    <tr>
+        <td><?php echo $user['uid'] ?></td>
+        <td><?php echo $user['firstName'] ?></td>
+        <td><?php echo $user['lastName'] ?></td>
+        <td><?php echo $user['birthDay'] ?></td>
+        <td><?php echo $user['dateChange'] ?></td>
+        <td><?php echo $user['description'] ?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<?php endif; ?>
+<script>
+    function submitFile() {
+        let input = document.getElementById('csv_file').value;
+        if (input === ''){
+            alert("Please select CSV file");
+            return false;
+        } else {
+            document.getElementById("csv_form").submit();
+        }
+    }
+</script>
+</body>
+</html>
